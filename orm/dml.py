@@ -1,4 +1,4 @@
-from orm.ddl import engine, Base, Bus, Driver, Passenger
+from ddl import engine, Base, Bus, Driver, Passenger
 import sqlalchemy.orm as orm
 
 
