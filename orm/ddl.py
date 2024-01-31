@@ -35,7 +35,7 @@ class Driver(Base):
 class Passenger(Base):
     __tablename__ = "passengers"
     id = sqlalchemy.Column(sqlalchemy.Integer(), primary_key=True)
-    bus = sqlalchemy.Column(sqlalchemy.String(100), nullable=True)
+    ticket = sqlalchemy.Column(sqlalchemy.String(100), nullable=True)
     line = sqlalchemy.Column(sqlalchemy.String(100), nullable=True)
     name = sqlalchemy.Column(sqlalchemy.String(100), nullable=True)
     surname = sqlalchemy.Column(sqlalchemy.String(100), nullable=True)

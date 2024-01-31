@@ -58,7 +58,7 @@ def choice_2_menu():
             f'1. Dodaj kierowcę\n'
             f'2. Wyświetl wszystkich kierowców\n'
             f'3. Edytuj kierowcę\n'
-            f'4. Usuń autobus\n'
+            f'4. Usuń kierowcę\n'
             f'0. Wyjdź\n')
         choice = input("Podaj numer : ").strip()
         match choice:
