@@ -1,3 +1,4 @@
+from utils import functions
 # TO DO
 # -CRUD BUS LIST (SPATIAL REFERENCE)
 # -CRUD BUS DRIVER LIST (SPATIAL REFERENCE)
@@ -8,3 +9,4 @@
 # - BUSES
 # - BUS DRIVERS
 # - PASSENGERS
+functions.main_menu()
