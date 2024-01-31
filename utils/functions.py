@@ -1,4 +1,4 @@
-
+import orm.dml as dml
 
 def main_menu():
     while True:
@@ -13,17 +13,17 @@ def main_menu():
         choice = input("Podaj numer : ").strip()
         match choice:
             case "1":
-                print("ok")
+                choice_1_menu()
             case "2":
-                print("ok")
+                choice_2_menu()
             case "3":
-                print("ok")
+                choice_3_menu()
             case "4":
-                print("ok")
+                choice_4_menu()
             case "5":
-                print("ok")
+                choice_5_menu()
             case "6":
-                print("ok")
+                choice_6_menu()
             case "0":
                 exit()
             case _:
@@ -40,15 +40,15 @@ def choice_1_menu():
         choice = input("Podaj numer : ").strip()
         match choice:
             case "1":
-                print("ok")
+                dml.create_bus()
             case "2":
-                print("ok")
+                dml.read_bus()
             case "3":
-                print("ok")
+                dml.update_bus()
             case "4":
-                print("ok")
+                dml.delete_bus()
             case "0":
-                exit()
+                break
             case _:
                 print("Wybór może być tylko z zakresu 0-4")
 
@@ -63,38 +63,38 @@ def choice_2_menu():
         choice = input("Podaj numer : ").strip()
         match choice:
             case "1":
-                print("ok")
+                dml.create_driver()
             case "2":
-                print("ok")
+                dml.read_driver()
             case "3":
-                print("ok")
+                dml.update_driver()
             case "4":
-                print("ok")
+                dml.delete_driver()
             case "0":
-                exit()
+                break
             case _:
                 print("Wybór może być tylko z zakresu 0-4")
 
 def choice_3_menu():
     while True:
         print(f'Menu:\n'
-            f'1. Dodaj kierowcę\n'
-            f'2. Wyświetl wszystkich kierowców\n'
-            f'3. Edytuj kierowcę\n'
-            f'4. Usuń autobus\n'
+            f'1. Dodaj kierowcę do wybranej linii\n'
+            f'2. Wyświetl wszystkich kierowców do wybranej linii\n'
+            f'3. Edytuj kierowcę wybranej linii\n'
+            f'4. Usuń kierowcę wybranej linii\n'
             f'0. Wyjdź\n')
         choice = input("Podaj numer : ").strip()
         match choice:
             case "1":
-                print("ok")
+                dml.create_driver_by_line()
             case "2":
-                print("ok")
+                dml.read_driver_by_line()
             case "3":
-                print("ok")
+                dml.update_driver_by_line()
             case "4":
-                print("ok")
+                dml.delete_driver_by_line()
             case "0":
-                exit()
+                break
             case _:
                 print("Wybór może być tylko z zakresu 0-4")
 
@@ -109,15 +109,15 @@ def choice_4_menu():
         choice = input("Podaj numer : ").strip()
         match choice:
             case "1":
-                print("ok")
+                dml.create_passenger()
             case "2":
-                print("ok")
+                dml.read_passenger()
             case "3":
-                print("ok")
+                dml.update_passenger()
             case "4":
-                print("ok")
+                dml.delete_passenger()
             case "0":
-                exit()
+                break
             case _:
                 print("Wybór może być tylko z zakresu 0-4")
 
@@ -140,7 +140,7 @@ def choice_5_menu():
             case "4":
                 print("ok")
             case "0":
-                exit()
+                break
             case _:
                 print("Wybór może być tylko z zakresu 0-4")
 
@@ -160,7 +160,7 @@ def choice_6_menu():
             case "3":
                 print("ok")
             case "0":
-                exit()
+                break
             case _:
                 print("Wybór może być tylko z zakresu 0-3")
 
