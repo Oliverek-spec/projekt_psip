@@ -12,11 +12,11 @@ def create_bus():
     if registration_query == False: 
         return
     line_query = input('Podaj nr linii ')
-    lines = session.query(Bus).filter(Bus.line == line_query).first()
-    if lines is not None:
-        print('\n!Taka linia już istnieje!\n')
-        return
-    elif registration_query == "":
+    # lines = session.query(Bus).filter(Bus.line == line_query).first()
+    # if lines is not None:
+    #     print('\n!Taka linia już istnieje!\n')
+    #     return
+    if registration_query == "":
         print('\n!Linia musi mieć znaki!\n')
         return
     north = input('Podaj współrzędną X ')
@@ -46,7 +46,7 @@ def update_bus():
     while True:
         new_registration = input('Podaj nową rejestrację ')
         registrations = session.query(Bus).filter(Bus.registration == new_registration).first()
-        if registrations is None:
+        if registrations is not None:
             print('Taka rejestracja już istnieje ')
         elif new_registration != "":
             bus.registration = new_registration
@@ -56,10 +56,10 @@ def update_bus():
             break 
     while True:
         new_line = input('Podaj nowy nr linii ')
-        lines = session.query(Bus).filter(Bus.line == new_line).first()
-        if lines is None:
-            print('\n!Taka linia już istnieje!\n')
-        elif new_line != "":
+        # lines = session.query(Bus).filter(Bus.line == new_line).first()
+        # if lines is None:
+        #     print('\n!Taka linia już istnieje!\n')
+        if new_line != "":
             bus.line = new_line
             break
         else:
@@ -83,10 +83,10 @@ def delete_bus():
 ### Funkcje menu nr 2 ###
 
 def create_driver():
-    registration_query = registration_insert()
-    if registration_query == False: 
+    create_bus = registration_insert()
+    if create_bus == False: 
         return
-    create_line = session.query(Bus).filter(Bus.registration == registration_query).first()
+    create_line = session.query(Bus).filter(Bus.registration == create_bus).first()
     create_name = input('Podaj imię kierowcy ')
     create_surname = input('Podaj nazwisko kierowcy ')
     north = input('Podaj współrzędną X ')
@@ -113,7 +113,7 @@ def update_driver():
     driver_to_update = input('Podaj nr rejestracyjny autobusu który prowadzi kierowca ')
     driver = session.query(Driver).filter(Driver.bus == driver_to_update).first()
     if driver is None:
-        print('Nie ma kierowcy takiego autobusu lub takiej rejestracji')
+        print('\n!Nie ma kierowcy takiego autobusu lub takiej rejestracji!\n')
         return
     while True:
         new_registration = input('Podaj nową rejestrację ')
@@ -156,7 +156,9 @@ def delete_driver():
 
 def create_driver_by_line():
     choice = line_checker() 
-    create_bus = input('Podaj rejestracyję prowadzonego autobusu ')
+    create_bus = registration_insert()
+    if create_bus == False: 
+        return
     create_name = input('Podaj imię kierowcy ')
     create_surname = input('Podaj nazwisko kierowcy ')
     north = input('Podaj współrzędną X ')
@@ -170,7 +172,6 @@ def create_driver_by_line():
     session.add(driver_to_create)
     session.commit()
 
-
 def read_driver_by_line():
     choice = line_checker() 
     drivers = session.query(Driver).filter(Driver.line == choice).all()
@@ -183,31 +184,37 @@ def read_driver_by_line():
 
 def update_driver_by_line():
     choice = line_checker() 
-    driver_to_update = input('Podaj nr rejestracyjny autobusu który prowadzi kierowca ').upper
-    driver = session.query(Driver).filter(Driver.line == choice, Driver.bus == driver_to_update).first()
+    driver_to_update = input('Podaj nr rejestracyjny autobusu który prowadzi kierowca ')
+    driver = session.query(Driver).filter(Driver.bus == driver_to_update, Driver.line == choice).first()
     if driver is None:
-        print('Nie ma kierowcy takiego autobusu lub takiej rejestracji')
-    elif driver.bus == driver_to_update:
-        while True:
-            new_registration = input('Podaj nową rejestrację ').upper
-            registtration_check = session.query(Driver).filter(Driver.bus == new_registration).all()
-            if len(registtration_check) != 0:
-                print('Autobus zajęty')
-            elif new_registration == '':
-                break
-            else:
-                driver.bus = new_registration
-                break 
-        new_name = input('Podaj nowe imię ')
-        if new_name != "":
-            driver.name = new_name
-        new_surname = input('Podaj nowe nazwisko ')
-        if new_name != "":
-            driver.surname = new_surname
-        new_north = input('Podaj nową współrzędną X ')
-        new_east = input('Podaj nową współrzędną Y ')
-        if new_north !="" and new_east != "":
-            driver.location = f'POINT({new_north} {new_east})'
+        print('\n!Nie ma kierowcy takiego autobusu!\n')
+        return
+    while True:
+        new_registration = input('Podaj nową rejestrację ')
+        buses = session.query(Bus).filter(Bus.registration == new_registration).first()
+        registrations = session.query(Driver).filter(Driver.bus == new_registration).first()
+        if buses is None:
+            print('\n!Nie ma takiej rejestracji!\n')
+        elif registrations is not None:
+            print('\n!Autobus zajęty!\n')
+        elif new_registration != '':
+            driver.bus = new_registration
+            break
+        else:
+            print('@Brak zmian')
+            break 
+    new_line = session.query(Bus).filter(Bus.registration == new_registration).first()
+    driver.line = new_line.line
+    new_name = input('Podaj nowe imię ')
+    if new_name != "":
+        driver.name = new_name
+    new_surname = input('Podaj nowe nazwisko ')
+    if new_name != "":
+        driver.surname = new_surname
+    new_north = input('Podaj nową współrzędną X ')
+    new_east = input('Podaj nową współrzędną Y ')
+    if new_north !="" and new_east != "":
+        driver.location = f'POINT({new_north} {new_east})'
     session.commit()
     
 def delete_driver_by_line():
@@ -223,15 +230,21 @@ def delete_driver_by_line():
 ### Funkcje menu 4 ###
 
 def create_passenger():
-    create_ticket = input('Podaj nr biletu ')
-    create_line = input('Podaj nr linii ')
+    create_ticket = ticket_insert()
+    if create_ticket == False:
+        return
+    line_query = input('Podaj nr linii ')
+    lines = session.query(Bus).filter(Bus.line == line_query).first()
+    if lines is None:
+        print('\n!Taka linia nie istnieje!\n')
+        return
     create_name = input('Podaj imię pasażera ')
     create_surname = input('Podaj nazwisko pasażera ')
     north = input('Podaj współrzędną X ')
     east = input('Podaj współrzędną Y ')
     passenger_to_create = Passenger(
         ticket = create_ticket,
-        line = create_line,
+        line = line_query,
         name = create_name,
         surname = create_surname,
         location = f'POINT({north} {east})')
@@ -251,26 +264,30 @@ def update_passenger():
     passanger_to_update = input('Podaj nr biletu do zmodyfikowania ')
     passanger = session.query(Passenger).filter(Passenger.ticket == passanger_to_update).first()
     if passanger is None:
-        print('Nie ma takiego biletu')
-    elif passanger.ticket == passanger_to_update:
-        while True:
-            new_ticket = input('Podaj nowy bilet ')
-            ticket_check = session.query(Passenger).filter(Passenger.ticket == new_ticket).all()
-            if len(ticket_check) != 0:
-                print('Taki bilet już istnieje')
-            elif new_ticket == '':
-                break
-            else:
-                passanger.ticket = new_ticket
-                break 
+        print('\n!Nie ma takiego biletu!\n')
+        return
     while True:
-        choice = input('Podaj nr linii ')
-        check = session.query(Bus).filter(Bus.line == choice).all()
-        if len(check) != 0:
+        new_ticket = input('Podaj nowy bilet ')
+        tickets = session.query(Passenger).filter(Passenger.ticket == new_ticket).first()
+        if tickets is not None:
+            print('\n!Taki bilet już istnieje!\n')
+        elif new_ticket != "":
+            passanger.ticket = new_ticket
             break
         else:
-            print('Nie ma takiej linii, wybierz istniejącą ')
-    passanger.line = choice
+            print('@Brak zmian')
+            break 
+    while True:
+        new_line = input('Podaj nowy nr linii ')
+        lines = session.query(Bus).filter(Bus.line == new_line).first()
+        if lines is None:
+            print('\n!Nie ma takiej linii!\n')
+        elif new_line != "":
+            passanger.line = new_line
+            break
+        else:
+            print('@Brak zmian')
+            break
     new_name = input('Podaj nowe imię ')
     if new_name != "":
         passanger.name = new_name
@@ -296,7 +313,9 @@ def delete_passenger():
 
 def create_passenger_by_line():
     choice = line_checker()
-    create_ticket = input('Podaj nr biletu ')
+    create_ticket = ticket_insert()
+    if create_ticket == False:
+        return
     create_name = input('Podaj imię pasażera ')
     create_surname = input('Podaj nazwisko pasażera ')
     north = input('Podaj współrzędną X ')
@@ -326,26 +345,28 @@ def update_passenger_by_line():
     passanger = session.query(Passenger).filter(Passenger.ticket == passanger_to_update, Passenger.line == choice).first()
     if passanger is None:
         print('Nie ma takiego biletu')
-    elif passanger.ticket == passanger_to_update:
-        while True:
-            new_ticket = input('Podaj nowy bilet ')
-            ticket_check = session.query(Passenger).filter(Passenger.ticket == new_ticket).all()
-            if len(ticket_check) != 0:
-                print('Taki bilet już istnieje')
-            elif new_ticket == '':
-                break
-            else:
-                passanger.ticket = new_ticket
-                break 
+        return
     while True:
-        new_line = input('Podaj nowy nr linii ')
-        line_check = session.query(Bus).filter(Bus.line == new_line).all()
-        if line_check is None:
-            print('Taki bilet już istnieje')
+        new_ticket = input('Podaj nowy bilet ')
+        tickets = session.query(Passenger).filter(Passenger.ticket == new_ticket).first()
+        if tickets is None:
+            print('\n!Taki bilet już istnieje!\n')
         elif new_ticket != "":
             passanger.ticket = new_ticket
             break
         else:
+            print('@Brak zmian')
+            break 
+    while True:
+        new_line = input('Podaj nowy nr linii ')
+        lines = session.query(Bus).filter(Bus.line == new_line).first()
+        if lines is not None:
+            print('Taka linia autobusowa nie istnieje')
+        elif new_ticket != "":
+            passanger.ticket = new_ticket
+            break
+        else:
+            print('@Brak zmian')
             break 
     new_name = input('Podaj nowe imię ')
     if new_name != "":
@@ -369,6 +390,9 @@ def delete_passenger_by_line():
         session.delete(passenger)
     session.commit()
 
+### Funkcje menu nr 6 ###
+
+
 ### DODATKOWE FUNKCJE ###
 
 def line_checker():
@@ -379,8 +403,8 @@ def line_checker():
     """
     while True:
         choice = input('Podaj nr linii ')
-        check = session.query(Bus).filter(Bus.line == choice).all()
-        if len(check) != 0:
+        check = session.query(Bus).filter(Bus.line == choice).first()
+        if check is not None:
             break
         else:
             print('Nie ma takiej linii, wybierz istniejącą ')
@@ -397,3 +421,16 @@ def registration_insert():
         return False
     else:
         return registration_query
+    
+def ticket_insert():
+    ticket_query = input('Podaj nr biletu ')
+    tickets = session.query(Bus).filter(Bus.registration == ticket_query).first()
+    if tickets is not None:
+        print('\n!Taki bilet już istnieje!\n')
+        return False
+    elif ticket_query == "":
+        print('\n!Nr biletu musi mieć znaki!\n')
+        return False
+    else:
+        return ticket_query
+    
