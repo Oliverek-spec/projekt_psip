@@ -2,7 +2,7 @@ import orm.dml as dml
 
 def main_menu():
     while True:
-        print(f'Menu:\n'
+        print(f'\n Menu:\n'
             f'1. Przejdź do menu autobusów\n'
             f'2. Przejdź do menu kierowców autobusów\n'
             f'3. Przejdź do menu kierowców autobusów wybranej linii autobusowej\n'
@@ -31,7 +31,7 @@ def main_menu():
 
 def choice_1_menu():
     while True:
-        print(f'Menu:\n'
+        print(f'\nMenu:\n'
             f'1. Dodaj autobus\n'
             f'2. Wyświetl wszystkie autobusy\n'
             f'3. Edytuj autobus\n'
@@ -54,7 +54,7 @@ def choice_1_menu():
 
 def choice_2_menu():
     while True:
-        print(f'Menu:\n'
+        print(f'\nMenu:\n'
             f'1. Dodaj kierowcę\n'
             f'2. Wyświetl wszystkich kierowców\n'
             f'3. Edytuj kierowcę\n'
@@ -77,7 +77,7 @@ def choice_2_menu():
 
 def choice_3_menu():
     while True:
-        print(f'Menu:\n'
+        print(f'\nMenu:\n'
             f'1. Dodaj kierowcę do wybranej linii\n'
             f'2. Wyświetl wszystkich kierowców do wybranej linii\n'
             f'3. Edytuj kierowcę wybranej linii\n'
@@ -100,7 +100,7 @@ def choice_3_menu():
 
 def choice_4_menu():
     while True:
-        print(f'Menu:\n'
+        print(f'\nMenu:\n'
             f'1. Dodaj pasażera\n'
             f'2. Wyświetl wszystkich pasażerów\n'
             f'3. Edytuj pasażera\n'
@@ -123,7 +123,7 @@ def choice_4_menu():
 
 def choice_5_menu():
     while True:
-        print(f'Menu:\n'
+        print(f'\nMenu:\n'
             f'1. Dodaj pasażera\n'
             f'2. Wyświetl wszystkich pasażerów\n'
             f'3. Edytuj pasażera\n'
@@ -132,13 +132,13 @@ def choice_5_menu():
         choice = input("Podaj numer : ").strip()
         match choice:
             case "1":
-                print("ok")
+                dml.create_passenger_by_line()
             case "2":
-                print("ok")
+                dml.read_passenger_by_line()
             case "3":
-                print("ok")
+                dml.update_passenger_by_line()
             case "4":
-                print("ok")
+                dml.delete_passenger_by_line()
             case "0":
                 break
             case _:
@@ -146,7 +146,7 @@ def choice_5_menu():
 
 def choice_6_menu():
     while True:
-        print(f'Menu:\n'
+        print(f'\nMenu:\n'
             f'1. Utwórz mapę autobusów\n'
             f'2. Utwórz mapę kierowców\n'
             f'3. Utwórz mapę pasażerów\n'
