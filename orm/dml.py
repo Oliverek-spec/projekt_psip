@@ -1,5 +1,7 @@
 from orm.ddl import engine, Base, Bus, Driver, Passenger
+from shapely import wkb
 import sqlalchemy.orm as orm
+import folium
 
 
 Session = orm.sessionmaker(bind=engine)
@@ -392,6 +394,23 @@ def delete_passenger_by_line():
 
 ### Funkcje menu nr 6 ###
 
+def map_of_buses(): 
+    map = folium.Map(
+        location = [52.5, 19],  
+        titles='OpesStreetMap', 
+        zoom_start=6)
+    objects = session.query(Bus).all()
+    if objects == None:
+        print('\n!Brak obiektów!\n')
+    else:
+        for object in objects:
+            folium.Marker(
+                location= get_lat_lon(object.location), 
+                popup=f'Nr rejestracyjny: {object.registration}\nNr linii: {object.line}'
+                ).add_to(map)
+        map.save(f'mapa_autobusów.html')
+        print('Mapa wszystkich autobusów pomyślnie wygenerowana :)')
+    session.commit()
 
 ### DODATKOWE FUNKCJE ###
 
@@ -434,3 +453,9 @@ def ticket_insert():
     else:
         return ticket_query
     
+def get_lat_lon(wkb_point: bytes)->list:
+    """
+    Retrieves the latitude and longitude coordinates from WKB point.
+    """
+    point = wkb.loads(str(wkb_point), hex=True)
+    return [point.y, point.x]

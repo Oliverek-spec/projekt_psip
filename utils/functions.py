@@ -154,7 +154,7 @@ def choice_6_menu():
         choice = input("Podaj numer : ").strip()
         match choice:
             case "1":
-                print("ok")
+                dml.map_of_buses()
             case "2":
                 print("ok")
             case "3":
