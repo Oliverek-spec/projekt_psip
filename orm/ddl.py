@@ -2,13 +2,36 @@ import sqlalchemy
 import sqlalchemy.orm as orm
 from geoalchemy2 import Geometry
 
+def app_username():
+    print('Podaj :\n')
+    while True:
+       username = input('Nazwa użytkownika: ')
+       if username == 'postgres':
+           break
+       elif username == 'exit':
+           exit()
+       else:
+           print('Błędny login!')
+    return username
+
+def app_password():
+    while True:
+       password = input('Hasło: ')
+       if password == '15082000':
+           break
+       elif password == 'exit':
+           exit()
+       else:
+           print('Błędne hasło!')
+    return password
+
 db_params = sqlalchemy.URL.create(
-    drivername = "postgresql",
-    username = 'postgres',
-    password = '15082000',
-    host = 'localhost',
-    database = 'postgres',
-    port = 5433 
+    drivername = "postgresql",#"postgresql"
+    username = app_username(),#'postgres'
+    password = app_password(),#'15082000'
+    host = 'localhost',#'localhost'
+    database = 'postgres',#'postgres'
+    port = 5433 # 5433
 )
 engine = sqlalchemy.create_engine(db_params)
 connection = engine.connect()

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0b6c78a1e5b06a3771198c5dabe4e93b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_0b6c78a1e5b06a3771198c5dabe4e93b" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0b6c78a1e5b06a3771198c5dabe4e93b = L.map(
+                "map_0b6c78a1e5b06a3771198c5dabe4e93b",
+                {
+                    center: [52.5, 19.0],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 6,
+                    zoomControl: true,
+                    preferCanvas: false,
+                    titles: "OpesStreetMap",
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_6c8205ef354931ccc8264d9598c9f015 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_6c8205ef354931ccc8264d9598c9f015.addTo(map_0b6c78a1e5b06a3771198c5dabe4e93b);
+        
+    
+            var marker_1bcd8e404343b9f25edd4c18d28ecd8b = L.marker(
+                [18.0, 52.0],
+                {}
+            ).addTo(map_0b6c78a1e5b06a3771198c5dabe4e93b);
+        
+    
+        var popup_a100b3c1e6579bc2bee1202001ec5f68 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_658e27e8adcbf07c02425932b5482d1c = $(`<div id="html_658e27e8adcbf07c02425932b5482d1c" style="width: 100.0%; height: 100.0%;">Nr rejestracyjny: WW8356 Nr linii: 45</div>`)[0];
+                popup_a100b3c1e6579bc2bee1202001ec5f68.setContent(html_658e27e8adcbf07c02425932b5482d1c);
+            
+        
+
+        marker_1bcd8e404343b9f25edd4c18d28ecd8b.bindPopup(popup_a100b3c1e6579bc2bee1202001ec5f68)
+        ;
+
+        
+    
+    
+            var marker_647d52ef5598af7ff3016f29f29dee6b = L.marker(
+                [18.0, 52.0],
+                {}
+            ).addTo(map_0b6c78a1e5b06a3771198c5dabe4e93b);
+        
+    
+        var popup_d762a198363146acd937608b7877ad39 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_8b79d47ab367e1e8ef6adad8b8de7fda = $(`<div id="html_8b79d47ab367e1e8ef6adad8b8de7fda" style="width: 100.0%; height: 100.0%;">Nr rejestracyjny: WE56 Nr linii: 34</div>`)[0];
+                popup_d762a198363146acd937608b7877ad39.setContent(html_8b79d47ab367e1e8ef6adad8b8de7fda);
+            
+        
+
+        marker_647d52ef5598af7ff3016f29f29dee6b.bindPopup(popup_d762a198363146acd937608b7877ad39)
+        ;
+
+        
+    
+    
+            var marker_41ff7239dd0d3b9c81c102e129bb02ef = L.marker(
+                [19.0, 51.0],
+                {}
+            ).addTo(map_0b6c78a1e5b06a3771198c5dabe4e93b);
+        
+    
+        var popup_72eaefe889a764ec83284a42e42bd5d3 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_54179a0a3fd80da1b72291659099289d = $(`<div id="html_54179a0a3fd80da1b72291659099289d" style="width: 100.0%; height: 100.0%;">Nr rejestracyjny: WT22 Nr linii: 15</div>`)[0];
+                popup_72eaefe889a764ec83284a42e42bd5d3.setContent(html_54179a0a3fd80da1b72291659099289d);
+            
+        
+
+        marker_41ff7239dd0d3b9c81c102e129bb02ef.bindPopup(popup_72eaefe889a764ec83284a42e42bd5d3)
+        ;
+
+        
+    
+    
+            var marker_3f022ca21576f77ab6096cfe30bd7d73 = L.marker(
+                [52.3, 18.0],
+                {}
+            ).addTo(map_0b6c78a1e5b06a3771198c5dabe4e93b);
+        
+    
+        var popup_f5bedd00566b04c1429a70bf23e702f3 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_881bbd204660d9d3f1aa017763f9d424 = $(`<div id="html_881bbd204660d9d3f1aa017763f9d424" style="width: 100.0%; height: 100.0%;">Nr rejestracyjny: WY75 Nr linii: 34</div>`)[0];
+                popup_f5bedd00566b04c1429a70bf23e702f3.setContent(html_881bbd204660d9d3f1aa017763f9d424);
+            
+        
+
+        marker_3f022ca21576f77ab6096cfe30bd7d73.bindPopup(popup_f5bedd00566b04c1429a70bf23e702f3)
+        ;
+
+        
+    
+    
+            var marker_74ccaddd76557669edb9a075af959c04 = L.marker(
+                [52.5, 18.0],
+                {}
+            ).addTo(map_0b6c78a1e5b06a3771198c5dabe4e93b);
+        
+    
+        var popup_2d917400af379e3ba6100f955c2020bd = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_28ecca081f44f46710aaf6cdd319dff4 = $(`<div id="html_28ecca081f44f46710aaf6cdd319dff4" style="width: 100.0%; height: 100.0%;">Nr rejestracyjny: WF77 Nr linii: 34</div>`)[0];
+                popup_2d917400af379e3ba6100f955c2020bd.setContent(html_28ecca081f44f46710aaf6cdd319dff4);
+            
+        
+
+        marker_74ccaddd76557669edb9a075af959c04.bindPopup(popup_2d917400af379e3ba6100f955c2020bd)
+        ;
+
+        
+    
+    
+            var marker_6a93cb5ffff4085c58068211849498ad = L.marker(
+                [52.5, 19.0],
+                {}
+            ).addTo(map_0b6c78a1e5b06a3771198c5dabe4e93b);
+        
+    
+        var popup_001a9027ce78448157e664790094f72c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9895eba5bfa65da825c0c2e07de7c951 = $(`<div id="html_9895eba5bfa65da825c0c2e07de7c951" style="width: 100.0%; height: 100.0%;">Nr rejestracyjny: WWW33 Nr linii: 76</div>`)[0];
+                popup_001a9027ce78448157e664790094f72c.setContent(html_9895eba5bfa65da825c0c2e07de7c951);
+            
+        
+
+        marker_6a93cb5ffff4085c58068211849498ad.bindPopup(popup_001a9027ce78448157e664790094f72c)
+        ;
+
+        
+    
+</script>
+</html>
