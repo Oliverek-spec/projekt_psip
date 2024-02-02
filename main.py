@@ -1,9 +1,3 @@
 from utils import functions
-# TO DO
-# -CRUD PASSENGER LIST (SPATIAL REFERENCE)
-# -CRUD PASSENGER LIST BY BUS LINE
-# MAP GENERATION:
-# - BUSES
-# - BUS DRIVERS
-# - PASSENGERS
+
 functions.main_menu()
