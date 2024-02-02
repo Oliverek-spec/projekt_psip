@@ -14,10 +14,6 @@ def create_bus():
     if registration_query == False: 
         return
     line_query = input('Podaj nr linii ')
-    # lines = session.query(Bus).filter(Bus.line == line_query).first()
-    # if lines is not None:
-    #     print('\n!Taka linia już istnieje!\n')
-    #     return
     if registration_query == "":
         print('\n!Linia musi mieć znaki!\n')
         return
@@ -85,20 +81,26 @@ def delete_bus():
 ### Funkcje menu nr 2 ###
 
 def create_driver():
-    create_bus = registration_insert()
-    if create_bus == False: 
+    create_bus = input('Podaj nr rejestracyjny autobusu który prowadzi kierowca ')
+    driver = session.query(Driver).filter(Driver.bus == create_bus).first()
+    buses = session.query(Bus).filter(Bus.registration == create_bus).first()
+    if driver is not None:
+        print('\n!Autobus zajęty!\n')
         return
-    create_line = session.query(Bus).filter(Bus.registration == create_bus).first()
+    elif buses is None:
+        print('\n!Nie ma takiego autobusu!\n')
+        return
+    elif create_bus == "":
+        print('\n!Rejestracja musi mieć znaki!\n')
     create_name = input('Podaj imię kierowcy ')
     create_surname = input('Podaj nazwisko kierowcy ')
-    north = input('Podaj współrzędną X ')
-    east = input('Podaj współrzędną Y ')
+    bus_location = get_lat_lon(buses.location)
     driver_to_create = Driver(
         bus = create_bus,
-        line = create_line.line,
+        line = buses.line,
         name = create_name,
         surname = create_surname,
-        location = f'POINT({north} {east})')
+        location = f'POINT({bus_location[1]} {bus_location[0]})')
     session.add(driver_to_create)
     session.commit()
 
@@ -131,18 +133,15 @@ def update_driver():
         else:
             print('@Brak zmian')
             break 
-    new_line = session.query(Bus).filter(Bus.registration == new_registration).first()
-    driver.line = new_line.line
+    driver.line = buses.line
     new_name = input('Podaj nowe imię ')
     if new_name != "":
         driver.name = new_name
     new_surname = input('Podaj nowe nazwisko ')
     if new_name != "":
         driver.surname = new_surname
-    new_north = input('Podaj nową współrzędną X ')
-    new_east = input('Podaj nową współrzędną Y ')
-    if new_north !="" and new_east != "":
-        driver.location = f'POINT({new_north} {new_east})'
+    bus_location = get_lat_lon(buses.location)
+    driver.location = f'POINT({bus_location[1]} {bus_location[0]})'
     session.commit()
     
 def delete_driver():
@@ -158,19 +157,26 @@ def delete_driver():
 
 def create_driver_by_line():
     choice = line_checker() 
-    create_bus = registration_insert()
-    if create_bus == False: 
+    create_bus = input('Podaj nr rejestracyjny autobusu który prowadzi kierowca ')
+    driver = session.query(Driver).filter(Driver.bus == create_bus).first()
+    buses = session.query(Bus).filter(Bus.registration == create_bus).first()
+    if driver is not None:
+        print('\n!Autobus zajęty!\n')
         return
+    elif buses is None:
+        print('\n!Nie ma takiego autobusu!\n')
+        return
+    elif create_bus == "":
+        print('\n!Rejestracja musi mieć znaki!\n')
     create_name = input('Podaj imię kierowcy ')
     create_surname = input('Podaj nazwisko kierowcy ')
-    north = input('Podaj współrzędną X ')
-    east = input('Podaj współrzędną Y ')
+    bus_location = get_lat_lon(buses.location)
     driver_to_create = Driver(
         bus = create_bus,
         line = choice, 
         name = create_name,
         surname = create_surname,
-        location = f'POINT({north} {east})')
+        location = f'POINT({bus_location[1]} {bus_location[0]})')
     session.add(driver_to_create)
     session.commit()
 
@@ -205,18 +211,15 @@ def update_driver_by_line():
         else:
             print('@Brak zmian')
             break 
-    new_line = session.query(Bus).filter(Bus.registration == new_registration).first()
-    driver.line = new_line.line
+    driver.line = buses.line
     new_name = input('Podaj nowe imię ')
     if new_name != "":
         driver.name = new_name
     new_surname = input('Podaj nowe nazwisko ')
     if new_name != "":
         driver.surname = new_surname
-    new_north = input('Podaj nową współrzędną X ')
-    new_east = input('Podaj nową współrzędną Y ')
-    if new_north !="" and new_east != "":
-        driver.location = f'POINT({new_north} {new_east})'
+    bus_location = get_lat_lon(buses.location)
+    driver.location = f'POINT({bus_location[1]} {bus_location[0]})'
     session.commit()
     
 def delete_driver_by_line():
@@ -296,10 +299,8 @@ def update_passenger():
     new_surname = input('Podaj nowe nazwisko ')
     if new_name != "":
         passanger.surname = new_surname
-    new_north = input('Podaj nową współrzędną X ')
-    new_east = input('Podaj nową współrzędną Y ')
-    if new_north !="" and new_east != "":
-        passanger.location = f'POINT({new_north} {new_east})'
+    line_location = get_lat_lon(lines.location)
+    passanger.location = f'POINT({line_location[1]} {line_location[0]})'
     session.commit()
     
 def delete_passenger():
