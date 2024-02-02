@@ -412,6 +412,47 @@ def map_of_buses():
         print('Mapa wszystkich autobusów pomyślnie wygenerowana :)')
     session.commit()
 
+def map_of_drivers(): 
+    map = folium.Map(
+        location = [52.5, 19],  
+        titles='OpesStreetMap', 
+        zoom_start=6)
+    objects = session.query(Driver).all()
+    if objects == None:
+        print('\n!Brak obiektów!\n')
+    else:
+        for object in objects:
+            folium.Marker(
+                location= get_lat_lon(object.location), 
+                popup=f'Nr rejestracyjny: {object.bus}\nNr linii: {object.line}\nImię i nazwisko: {object.name} {object.surname}'
+                ).add_to(map)
+        map.save(f'mapa_kierowców.html')
+        print('Mapa wszystkich kierowców pomyślnie wygenerowana :)')
+    session.commit()
+    
+def map_of_passengers():
+    choice = line_checker()
+    check = session.query(Passenger).filter(Passenger.line == choice).first()
+    if check is None:
+        print('\n!Wybrana linia nie ma pasażerów!\n')
+        return
+    map = folium.Map(
+        location = [52.5, 19],  
+        titles='OpesStreetMap', 
+        zoom_start=6)
+    objects = session.query(Passenger).filter(Passenger.line == choice).all()
+    if objects == None:
+        print('\n!Brak obiektów!\n')
+    else:
+        for object in objects:
+            folium.Marker(
+                location= get_lat_lon(object.location), 
+                popup=f'Nr biletu: {object.ticket}\nNr linii: {object.line}\nImię i nazwisko: {object.name} {object.surname}'
+                ).add_to(map)
+        map.save(f'mapa_pasażerów.html')
+        print('Mapa wszystkich pasażerów pomyślnie wygenerowana :)')
+    session.commit()
+    
 ### DODATKOWE FUNKCJE ###
 
 def line_checker():
@@ -426,7 +467,7 @@ def line_checker():
         if check is not None:
             break
         else:
-            print('Nie ma takiej linii, wybierz istniejącą ')
+            print('\n!Nie ma takiej linii, wybierz istniejącą!\n')
     return choice
 
 def registration_insert():

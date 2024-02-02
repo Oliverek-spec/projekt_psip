@@ -156,9 +156,9 @@ def choice_6_menu():
             case "1":
                 dml.map_of_buses()
             case "2":
-                print("ok")
+                dml.map_of_drivers()
             case "3":
-                print("ok")
+                dml.map_of_passengers()
             case "0":
                 break
             case _:
