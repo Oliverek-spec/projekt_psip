@@ -54,9 +54,6 @@ def update_bus():
             break 
     while True:
         new_line = input('Podaj nowy nr linii ')
-        # lines = session.query(Bus).filter(Bus.line == new_line).first()
-        # if lines is None:
-        #     print('\n!Taka linia już istnieje!\n')
         if new_line != "":
             bus.line = new_line
             break
